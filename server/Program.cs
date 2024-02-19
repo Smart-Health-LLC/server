@@ -23,6 +23,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseWebSockets();
 
+// configure HTTP request pipeline
+{
+    // global cors policy
+    app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+
+    // global error handler
+    app.UseMiddleware<ErrorHandlerMiddleware>();
+}
 List<WebSocket?> connections = [];
 
 async Task Broadcast(string message)
