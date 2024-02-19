@@ -1,8 +1,10 @@
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
-using System.Threading.Tasks.Dataflow;
+using System.Text.Json.Serialization;
 using server.Helpers;
+using server.Repositories;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +27,24 @@ app.UseWebSockets();
     services.AddCors();
     services.AddSwaggerGen();
     services.AddEndpointsApiExplorer();
+    services.AddControllers().AddJsonOptions(jsonOptions =>
+    {
+        // serialize enums as strings in api responses (e.g. Role)
+        jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+        // ignore omitted parameters on models to enable optional params (e.g. User update)
+        jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
+    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
 
     // configure DI for application services
     services.AddSingleton<DataContext>();
+
+    services.AddScoped<IUserRepository, UserRepository>();
+    services.AddScoped<IUserService, UserService>();
 }
 
 
