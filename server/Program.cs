@@ -15,8 +15,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
+// maybe migrate to SignalR, when the necessity push to this
 app.UseWebSockets();
 
 // add services to DI container
@@ -27,14 +29,15 @@ app.UseWebSockets();
     services.AddCors();
     services.AddSwaggerGen();
     services.AddEndpointsApiExplorer();
-    services.AddControllers().AddJsonOptions(jsonOptions =>
-    {
-        // serialize enums as strings in api responses (e.g. Role)
-        jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    services.AddControllers()
+        .AddJsonOptions(jsonOptions =>
+        {
+            // serialize enums as strings in api responses (e.g. Role)
+            jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
-        // ignore omitted parameters on models to enable optional params (e.g. User update)
-        jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    });
+            // ignore omitted parameters on models to enable optional params (e.g. User update)
+            jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        });
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     // configure strongly typed settings object
