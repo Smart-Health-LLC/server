@@ -1,16 +1,10 @@
 using System.Net;
-using System.Net.Sockets;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks.Dataflow;
+using server.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
-builder.WebHost.UseUrls("http://localhost:6969");
 
 var app = builder.Build();
 
@@ -23,6 +17,22 @@ if (app.Environment.IsDevelopment())
 
 app.UseWebSockets();
 
+// add services to DI container
+{
+    var services = builder.Services;
+    var env = builder.Environment;
+
+    services.AddCors();
+    services.AddSwaggerGen();
+    services.AddEndpointsApiExplorer();
+    // configure strongly typed settings object
+    services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
+
+    // configure DI for application services
+    services.AddSingleton<DataContext>();
+}
+
+
 // configure HTTP request pipeline
 {
     // global cors policy
@@ -34,6 +44,11 @@ app.UseWebSockets();
     // global error handler
     app.UseMiddleware<ErrorHandlerMiddleware>();
 }
+
+/***********************************
+ ********* WEB SOCKETS *************
+ ***********************************/
+
 List<WebSocket?> connections = [];
 
 async Task Broadcast(string message)
@@ -72,7 +87,7 @@ app.Map("/ws", async context =>
             if (result.MessageType == WebSocketMessageType.Text)
             {
                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                            Console.Out.WriteLine(message);
+                Console.Out.WriteLine(message);
             }
             else if (result.MessageType == WebSocketMessageType.Close || ws.State == WebSocketState.Aborted)
             {
@@ -87,4 +102,4 @@ app.Map("/ws", async context =>
     }
 });
 
-await app.RunAsync();
+await app.RunAsync("http://localhost:6969");
