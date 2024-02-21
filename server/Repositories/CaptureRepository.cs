@@ -10,8 +10,8 @@ public class CaptureRepository(DataContext context) : ICaptureRepository
     {
         using var connection = context.CreateConnection();
         const string sql = """
-                               INSERT INTO Captures (StartTime, EndTime, TypeName, Value)
-                               VALUES (@StartTime, @EndTime, @TypeName, @Value)
+                               INSERT INTO Captures (UserId, StartTime, EndTime, TypeName, Value)
+                               VALUES (@UserId, @StartTime, @EndTime, @TypeName, @Value)
                            """;
         await connection.ExecuteAsync(sql, capture);
     }

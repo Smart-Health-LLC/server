@@ -50,6 +50,7 @@ public class DataContext(IOptions<DbSettings> dbSettings)
             var sql = """
                           CREATE TABLE IF NOT EXISTS Users (
                               Id SERIAL PRIMARY KEY,
+                              UserId SERIAL FOREIGN KEY
                               Title VARCHAR,
                               FirstName VARCHAR,
                               LastName VARCHAR,
