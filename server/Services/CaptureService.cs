@@ -1,10 +1,13 @@
-using System.Text.RegularExpressions;
+using AutoMapper;
+using server.DTO;
 using server.Repositories;
+using Capture = System.Text.RegularExpressions.Capture;
 
 namespace server.Services;
 
 public class CaptureService(
-    ICaptureRepository captureRepository
+    ICaptureRepository captureRepository,
+    IMapperBase mapper
 ) : ICaptureService
 {
     public async Task<IEnumerable<Capture>> GetAll()
@@ -19,6 +22,16 @@ public class CaptureService(
         if (capture == null) throw new KeyNotFoundException("Capture not found");
 
         return capture;
+    }
+
+
+    public async Task Create(CreateCaptureRequest model)
+    {
+        // map model to new capture object
+        var capture = mapper.Map<Capture>(model);
+
+        // save capture
+        await captureRepository.Create(capture);
     }
 
     public async Task<IEnumerable<Capture>> GetAllByUserId(int userId)
