@@ -10,7 +10,7 @@ public interface IUserService
 {
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
-    Task Create(CreateRequest model);
+    Task Create(CreateUserRequest model);
     Task Update(int id, UpdateRequest model);
     Task Delete(int id);
 }

@@ -23,7 +23,7 @@ public class UsersController(IUserService userService, ILogger<UsersController> 
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateRequest model)
+    public async Task<IActionResult> Create(CreateUserRequest model)
     {
         await userService.Create(model);
         logger.Log(LogLevel.Information, "New user has created");

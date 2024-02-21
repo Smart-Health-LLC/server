@@ -3,7 +3,7 @@ using server.Models;
 
 namespace server.DTO;
 
-public class CreateRequest
+public class CreateUserRequest
 {
     [Required] public string? Title { get; set; }
 

@@ -10,7 +10,7 @@ public class UserService(
     IUserRepository userRepository,
     IMapperBase mapper) : IUserService
 {
-    public async Task Create(CreateRequest model)
+    public async Task Create(CreateUserRequest model)
     {
         // validate
         if (await userRepository.GetByEmail(model.Email!) != null)
