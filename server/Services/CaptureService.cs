@@ -20,4 +20,9 @@ public class CaptureService(
 
         return capture;
     }
+
+    public async Task<IEnumerable<Capture>> GetAllByUserId(int userId)
+    {
+        return await captureRepository.GetAllByUserId(userId);
+    }
 }

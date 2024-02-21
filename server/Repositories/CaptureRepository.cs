@@ -34,4 +34,14 @@ public class CaptureRepository(DataContext context) : ICaptureRepository
                            """;
         return await connection.QuerySingleOrDefaultAsync<Capture>(sql, new { id });
     }
+
+    public async Task<IEnumerable<Capture>> GetAllByUserId(int userId)
+    {
+        using var connection = context.CreateConnection();
+        const string sql = """
+                               SELECT * FROM Captures
+                               WHERE UserId = @userId
+                           """;
+        return await connection.QueryAsync<Capture>(sql);
+    }
 }
