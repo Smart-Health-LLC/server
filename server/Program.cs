@@ -48,6 +48,8 @@ app.UseWebSockets();
 
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<ICaptureRepository, CaptureRepository>();
+    services.AddScoped<ICaptureService, CaptureService>();
 }
 
 

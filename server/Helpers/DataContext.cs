@@ -27,7 +27,8 @@ public class DataContext(IOptions<DbSettings> dbSettings)
         // create database if it doesn't exist
         var connectionString =
             $"Host={_dbSettings.Server}; Database=postgres; Username={_dbSettings.UserId}; Password={_dbSettings.Password};";
-        using var connection = new NpgsqlConnection(connectionString);
+
+        await using var connection = new NpgsqlConnection(connectionString);
         var sqlDbCount = $"SELECT COUNT(*) FROM pg_database WHERE datname = '{_dbSettings.Database}';";
         var dbCount = await connection.ExecuteScalarAsync<int>(sqlDbCount);
         if (dbCount == 0)
@@ -42,6 +43,7 @@ public class DataContext(IOptions<DbSettings> dbSettings)
         // create tables if they don't exist
         using var connection = CreateConnection();
         await _initUsers();
+        await _initCaptures();
 
         async Task _initUsers()
         {
@@ -54,6 +56,20 @@ public class DataContext(IOptions<DbSettings> dbSettings)
                               Email VARCHAR,
                               Role INTEGER,
                               PasswordHash VARCHAR
+                          );
+                      """;
+            await connection.ExecuteAsync(sql);
+        }
+
+        async Task _initCaptures()
+        {
+            var sql = """
+                          CREATE TABLE IF NOT EXISTS Captures (
+                              Id SERIAL PRIMARY KEY,
+                              StartTime TIMESTAMP,
+                              EndTime TIMESTAMP,
+                              TypeName VARCHAR,
+                              Value REAL
                           );
                       """;
             await connection.ExecuteAsync(sql);
