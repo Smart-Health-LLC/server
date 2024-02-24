@@ -8,7 +8,8 @@ namespace server.Services;
 
 public class UserService(
     IUserRepository userRepository,
-    IMapperBase mapper) : IUserService
+    IMapper mapper
+) : IUserService
 {
     public async Task Create(CreateUserRequest model)
     {
