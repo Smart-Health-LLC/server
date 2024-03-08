@@ -7,7 +7,7 @@ namespace server.Services;
 
 public class CaptureService(
     ICaptureRepository captureRepository,
-    IMapperBase mapper
+    IMapper mapper
 ) : ICaptureService
 {
     public async Task<IEnumerable<Capture>> GetAll()
