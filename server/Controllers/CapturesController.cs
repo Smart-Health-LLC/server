@@ -31,6 +31,7 @@ public class CapturesController(ICaptureService captureService, ILogger<UsersCon
     }
 
     [HttpPost]
+    [Route("create_set")]
     public async Task<IActionResult> Create(CreateSetCaptureRequest model)
     {
         await captureService.Create(model);
