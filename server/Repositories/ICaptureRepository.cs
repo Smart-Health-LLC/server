@@ -8,4 +8,5 @@ public interface ICaptureRepository
     Task<IEnumerable<Capture>> GetAll();
     Task<Capture> GetById(int id);
     Task<IEnumerable<Capture>> GetAllByUserId(int userId);
+    Task Create(IEnumerable<Capture> captures);
 }

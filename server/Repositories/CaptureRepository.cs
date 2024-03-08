@@ -44,4 +44,10 @@ public class CaptureRepository(DataContext context) : ICaptureRepository
                            """;
         return await connection.QueryAsync<Capture>(sql);
     }
+
+    public async Task Create(IEnumerable<Capture> captures)
+    {
+        // todo create bulk inserting without dapper plus
+        foreach (var capture in captures) await Create(capture);
+    }
 }

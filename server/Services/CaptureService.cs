@@ -25,6 +25,14 @@ public class CaptureService(
     }
 
 
+    public async Task Create(CreateSetCaptureRequest model)
+    {
+        var mappedCaptures = model.captures.Select(mapper.Map<Capture>).ToList();
+
+        // save capture
+        await captureRepository.Create(mappedCaptures);
+    }
+
     public async Task Create(CreateCaptureRequest model)
     {
         // map model to new capture object

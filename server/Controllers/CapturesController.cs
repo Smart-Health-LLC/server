@@ -29,4 +29,12 @@ public class CapturesController(ICaptureService captureService, ILogger<UsersCon
         logger.Log(LogLevel.Information, "New capture saved");
         return Ok(new { message = "Capture saved" });
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateSetCaptureRequest model)
+    {
+        await captureService.Create(model);
+        logger.Log(LogLevel.Information, "Set of new captures saved");
+        return Ok(new { message = "Set of new captures saved" });
+    }
 }
