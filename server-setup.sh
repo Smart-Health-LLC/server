@@ -1,6 +1,9 @@
 # ------- new user to work within OS safely
 adduser <User>
 passwd <User>
+# ubuntu
+usermod -aG sudo User
+# cent os
 gpasswd -a <User> wheel
 yum install sudo
 
@@ -17,6 +20,9 @@ sudo yum update
 sudo yum install firewalld -y
 sudo systemctl enable firewalld
 sudo systemctl start firewalld
+# don't forget to add ports and apps firewall exceptions
+# btw don't forget to set up port forwarding
+
 
 # ----- Configure timezones
 sudo timedatectl set-timezone Asia/Irkutsk
