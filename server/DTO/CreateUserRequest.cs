@@ -7,9 +7,8 @@ public class CreateUserRequest
 {
     [Required] public string? Title { get; set; }
 
-    [Required] public string? FirstName { get; set; }
-
-    [Required] public string? LastName { get; set; }
+    [Required] public string? Username { get; set; }
+    [Required] public string? Bio { get; set; }
 
     [Required]
     [EnumDataType(typeof(Role))]

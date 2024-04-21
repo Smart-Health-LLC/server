@@ -10,9 +10,8 @@ public class UpdateRequest
     // treat empty string as null for password fields to 
     // make them optional in front end apps
     private string? _password;
-    public string? Title { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    public string? Username { get; set; }
+    public string? Bio { get; set; }
 
     [EnumDataType(typeof(Role))] public string? Role { get; set; }
 
