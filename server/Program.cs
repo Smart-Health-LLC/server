@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using server.Helpers;
 using server.Repositories;
+using server.DataAccess;
 using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,11 +29,9 @@ var builder = WebApplication.CreateBuilder(args);
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
 
     // configure DI for application services
-    services.AddSingleton<DataContext>();
+    services.AddSingleton<DatabaseContext>();
 
-    services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IUserService, UserService>();
-    services.AddScoped<ICaptureRepository, CaptureRepository>();
     services.AddScoped<ICaptureService, CaptureService>();
 }
 
