@@ -1,4 +1,4 @@
-namespace server.Models;
+namespace server.DataAccess.Models;
 
 public class SleepPeriodHistory
 {

@@ -1,6 +1,6 @@
-namespace server.Models;
+namespace server.DataAccess.Models;
 
-public class MissedCheck
+public class SkippedPeriod
 {
     public int Id { get; set; }
     public SleepPeriod SleepPeriod { get; set; }

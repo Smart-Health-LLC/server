@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace server.Models;
+namespace server.DataAccess.Models;
 
 public class User
 {
@@ -10,7 +10,7 @@ public class User
     public Role Role { get; set; }
     public string? Bio { get; set; }
 
-    public List<UserScheduleAttempt> Attempts { get; set; }
+    public List<UserScheduleAttempt>? Attempts { get; set; }
 
     [JsonIgnore] public string? PasswordHash { get; set; }
 }

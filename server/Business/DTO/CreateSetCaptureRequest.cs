@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace server.DTO;
+namespace server.Business.DTO;
 
 public class CreateSetCaptureRequest
 {

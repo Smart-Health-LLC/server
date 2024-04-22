@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using server.Models;
+using server.DataAccess.Models;
 
-namespace server.DTO;
+namespace server.Business.DTO;
 
 public class CreateUserRequest
 {

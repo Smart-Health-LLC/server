@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace server.Helpers;
+namespace server.DataAccess;
 
 public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
 {

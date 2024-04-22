@@ -1,4 +1,4 @@
-namespace server.Models;
+namespace server.DataAccess.Models;
 
 public class BaseSchedule
 {
@@ -7,5 +7,5 @@ public class BaseSchedule
     public string? ShortName { get; set; }
     public string? Description { get; set; }
     public TimeSpan TotalSleepTime { get; set; }
-    public List<BaseSleepPeriod> SleepPeriods { get; set; }
+    public virtual List<BaseSleepPeriod> SleepPeriods { get; set; }
 }
