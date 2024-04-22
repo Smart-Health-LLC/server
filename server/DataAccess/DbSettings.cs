@@ -1,4 +1,4 @@
-namespace server.Helpers;
+namespace server.DataAccess;
 
 public class DbSettings
 {
