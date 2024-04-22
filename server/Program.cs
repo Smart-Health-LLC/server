@@ -1,7 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using server.DataAccess;
-using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +20,6 @@ var builder = WebApplication.CreateBuilder(args);
 
     // configure DI for application services
     services.AddSingleton<DatabaseContext>();
-
-    services.AddScoped<IUserService, UserService>();
-    services.AddScoped<ICaptureService, CaptureService>();
 }
 
 var app = builder.Build();
