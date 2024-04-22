@@ -1,6 +1,5 @@
-using System.Text.Json.Serialization;
-using server.Helpers;
-using server.Repositories;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using server.DataAccess;
 using server.Services;
 
@@ -12,18 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
     var env = builder.Environment;
 
     services.AddCors();
+    services.AddFastEndpoints().SwaggerDocument();
     services.AddSwaggerGen();
-    services.AddControllers()
-        .AddJsonOptions(jsonOptions =>
-        {
-            // serialize enums as strings in api responses (e.g. Role)
-            jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
-            // ignore omitted parameters on models to enable optional params (e.g. User update)
-            jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        });
-    services.AddEndpointsApiExplorer();
-    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    // services.AddEndpointsApiExplorer();
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
@@ -59,6 +50,6 @@ app.UseWebSockets();
     app.UseMiddleware<ErrorHandlerMiddleware>();
 }
 
-app.MapControllers();
+app.UseFastEndpoints().UseSwaggerGen();
 
 await app.RunAsync();
