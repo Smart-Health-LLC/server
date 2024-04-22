@@ -1,9 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace server.DataAccess.Models;
 
 public class BaseScheduleFamily
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public List<BaseSchedule> Schedules { get; set; }
+    [MaxLength(100)] public string Name { get; set; }
+    [MaxLength(1000)] public string Description { get; set; }
+
+    [ForeignKey("BaseScheduleId")] public List<BaseSchedule> Schedules { get; set; }
 }
