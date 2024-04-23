@@ -7,7 +7,7 @@ public class Capture
 {
     [Key] public int Id { get; set; }
 
-    [ForeignKey("UserId")] public User User { get; set; }
+    [ForeignKey("UserId")] public virtual User User { get; set; }
 
     public DateTime? StartTime { get; set; }
     public DateTime EndTime { get; set; }

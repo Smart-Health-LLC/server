@@ -33,13 +33,55 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
     {
         base.OnModelCreating(modelBuilder);
         // TODO add base schedule data and other predefined stuff
-        // modelBuilder.Entity<Villa>().HasData(
-        //     new Villa
-        //     {
-        //         Id = 1, Amenity = "Pool", CreatedDate = DateTime.Now, Details = "This is a 3 bedroom villa",
-        //         ImageUrl = "https://www.villarenters.com/content/images/properties/property_1/property_1_1.jpg",
-        //         Name = "Villa 1", Occupancy = 6, Rate = 1000, Sqft = 2000, UpdatedDate = DateTime.Now
-        //     },
-        // );
+        modelBuilder.Entity<BaseScheduleFamily>().HasData(
+            new BaseScheduleFamily
+            {
+                Description = "ashta",
+                Name = "Biphasic",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "ashta",
+                Name = "Everyman",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "ashta",
+                Name = "Dual core",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "ashta",
+                Name = "Tri core",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "asht-only",
+                Name = "Core-only",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "asht-only",
+                Name = "Nap-only",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "asht-only",
+                Name = "Flexible",
+                Schedules = []
+            },
+            new BaseScheduleFamily
+            {
+                Description = "asht-only",
+                Name = "Non-reducing",
+                Schedules = []
+            }
+        );
     }
 }

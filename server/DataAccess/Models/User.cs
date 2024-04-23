@@ -16,7 +16,7 @@ public class User
 
     [MaxLength(1000)] public string? Bio { get; set; }
 
-    [ForeignKey("UserScheduleAttemptId")] public List<UserScheduleAttempt>? Attempts { get; set; }
+    [ForeignKey("UserScheduleAttemptId")] public virtual List<UserScheduleAttempt>? Attempts { get; set; }
 
     [JsonIgnore] public string? PasswordHash { get; set; }
 }
