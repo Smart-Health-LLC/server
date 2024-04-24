@@ -2,6 +2,8 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using server.Configuration;
 using server.DataAccess;
+using server.DataAccess.Interfaces;
+using server.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,9 +30,12 @@ var builder = WebApplication.CreateBuilder(args);
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
 
+
     // configure DI for application services
     services.AddSingleton<DatabaseContext>();
+
     builder.Services.AddScoped<ILanguageService, LanguageService>();
+    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 }
 
 var app = builder.Build();
