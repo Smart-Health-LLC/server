@@ -10,10 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
     var env = builder.Environment;
 
     services.AddCors();
-    services.AddFastEndpoints().SwaggerDocument();
-    services.AddSwaggerGen();
-
-    // services.AddEndpointsApiExplorer();
+    services.AddFastEndpoints();
+    services.SwaggerDocument(o =>
+    {
+        o.DocumentSettings = s =>
+        {
+            s.DocumentName = "Initial Release";
+            s.Title = "Pit API";
+            s.Version = "v0";
+        };
+    });
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
@@ -25,14 +31,9 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
-}
 
-// maybe migrate to SignalR, when the necessity push to this
-app.UseWebSockets();
+// app.UseWebSockets();
 
 // configure HTTP request pipeline
 {
@@ -43,7 +44,12 @@ app.UseWebSockets();
         .AllowAnyHeader());
 }
 
-app.UseFastEndpoints().UseSwaggerGen();
+app.UseFastEndpoints(c =>
+{
+    c.Endpoints.RoutePrefix = "api";
+    c.Versioning.Prefix = "v";
+});
+app.UseSwaggerGen();
 app.UseDefaultExceptionHandler();
 
 await app.RunAsync();
