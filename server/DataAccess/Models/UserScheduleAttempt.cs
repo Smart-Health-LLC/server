@@ -10,6 +10,8 @@ public class UserScheduleAttempt
 
     public bool IsArchived { get; set; }
     public bool IsAdopted { get; set; }
+    public DateOnly DateStarted { get; set; }
+    public DateOnly DateFinished { get; set; }
 
     [ForeignKey("UserNoteId")] public virtual List<UserNote> Notes { get; set; }
 }
