@@ -36,49 +36,49 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
         modelBuilder.Entity<BaseScheduleFamily>().HasData(
             new BaseScheduleFamily
             {
-                Description = "ashta",
+                Id = 1,
                 Name = "Biphasic",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "ashta",
+                Id = 2,
                 Name = "Everyman",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "ashta",
+                Id = 3,
                 Name = "Dual core",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "ashta",
+                Id = 4,
                 Name = "Tri core",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "asht-only",
+                Id = 5,
                 Name = "Core-only",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "asht-only",
+                Id = 6,
                 Name = "Nap-only",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "asht-only",
+                Id = 7,
                 Name = "Flexible",
                 Schedules = []
             },
             new BaseScheduleFamily
             {
-                Description = "asht-only",
+                Id = 8,
                 Name = "Non-reducing",
                 Schedules = []
             }
