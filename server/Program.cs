@@ -41,11 +41,9 @@ app.UseWebSockets();
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
-
-    // global error handler
-    app.UseMiddleware<ErrorHandlerMiddleware>();
 }
 
 app.UseFastEndpoints().UseSwaggerGen();
+app.UseDefaultExceptionHandler();
 
 await app.RunAsync();
