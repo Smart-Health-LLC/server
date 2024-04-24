@@ -1,5 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using server.Configuration;
 using server.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,14 +19,18 @@ var builder = WebApplication.CreateBuilder(args);
             s.DocumentName = "Initial Release";
             s.Title = "Pit API";
             s.Version = "v0";
+            s.OperationProcessors.Add(new AcceptLanguageHeaderParameter());
         };
     });
+
+    services.AddLocalization();
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
 
     // configure DI for application services
     services.AddSingleton<DatabaseContext>();
+    builder.Services.AddScoped<ILanguageService, LanguageService>();
 }
 
 var app = builder.Build();
