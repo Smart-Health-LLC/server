@@ -1,7 +1,10 @@
-using System.Text.Json.Serialization;
-using server.Helpers;
-using server.Repositories;
-using server.Services;
+using FastEndpoints;
+using FastEndpoints.Swagger;
+using Microsoft.Extensions.Options;
+using server.Configuration;
+using server.DataAccess;
+using server.DataAccess.Interfaces;
+using server.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,42 +14,44 @@ var builder = WebApplication.CreateBuilder(args);
     var env = builder.Environment;
 
     services.AddCors();
-    services.AddSwaggerGen();
-    services.AddControllers()
-        .AddJsonOptions(jsonOptions =>
+    services.AddFastEndpoints();
+    services.SwaggerDocument(o =>
+    {
+        o.DocumentSettings = s =>
         {
-            // serialize enums as strings in api responses (e.g. Role)
-            jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            s.DocumentName = "Initial Release";
+            s.Title = "Pit API";
+            s.Version = "v0";
+            s.OperationProcessors.Add(new AcceptLanguageHeaderParameter());
+        };
+    });
 
-            // ignore omitted parameters on models to enable optional params (e.g. User update)
-            jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    services.AddLocalization();
+    builder.Services.Configure<RequestLocalizationOptions>(
+        options =>
+        {
+            options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
+            options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
+            options.SupportedCultures = SupportedCultures.Cultures;
+            options.SupportedUICultures = SupportedCultures.Cultures;
         });
-    services.AddEndpointsApiExplorer();
-    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
 
-    // configure DI for application services
-    services.AddSingleton<DataContext>();
 
-    services.AddScoped<IUserRepository, UserRepository>();
-    services.AddScoped<IUserService, UserService>();
-    services.AddScoped<ICaptureRepository, CaptureRepository>();
-    services.AddScoped<ICaptureService, CaptureService>();
+    // configure DI for application services
+    services.AddSingleton<DatabaseContext>();
+
+    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 }
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
-}
 
-// maybe migrate to SignalR, when the necessity push to this
-app.UseWebSockets();
+// app.UseWebSockets();
 
 // configure HTTP request pipeline
 {
@@ -55,11 +60,18 @@ app.UseWebSockets();
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
-
-    // global error handler
-    app.UseMiddleware<ErrorHandlerMiddleware>();
 }
 
-app.MapControllers();
+// This is used to allow the app to gather the requested language/culture from incoming requests
+var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(localizeOptions!.Value);
+
+app.UseFastEndpoints(c =>
+{
+    c.Endpoints.RoutePrefix = "api";
+    c.Versioning.Prefix = "v";
+});
+app.UseSwaggerGen();
+app.UseDefaultExceptionHandler();
 
 await app.RunAsync();
