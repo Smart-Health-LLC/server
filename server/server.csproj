@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <InvariantGlobalization>true</InvariantGlobalization>
+        <InvariantGlobalization>false</InvariantGlobalization>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +20,20 @@
         </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0-preview.3"/>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="API\Features\Public\GetFamilyScheduleList\FamilyScheduleResource.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>FamilyScheduleResource.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="API\Features\Public\GetFamilyScheduleList\FamilyScheduleResource.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>FamilyScheduleResource.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>
