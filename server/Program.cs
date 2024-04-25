@@ -13,6 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
     var services = builder.Services;
     var env = builder.Environment;
 
+    services.AddLocalization();
+    services.Configure<RequestLocalizationOptions>(
+        options =>
+        {
+            options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
+            options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
+            options.SupportedCultures = SupportedCultures.Cultures;
+            options.SupportedUICultures = SupportedCultures.Cultures;
+        });
+
     services.AddCors();
     services.AddFastEndpoints();
     services.SwaggerDocument(o =>
