@@ -20,12 +20,12 @@ public class Endpoint : EndpointWithoutRequest<Results<Ok<List<BaseScheduleFamil
         AllowAnonymous();
     }
 
-    public override async Task<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>> HandleAsync(
+    public override async Task<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>> ExecuteAsync(
         CancellationToken ct)
     {
-        var families = await Repository.GetAllAsync();
-        // if (families is null)
-        // return TypedResults.NotFound();
+        var families = await Repository.GetAllAsync(tracked: false);
+        if (families.Count == 0)
+            return TypedResults.NotFound();
 
         return TypedResults.Ok(families);
     }
