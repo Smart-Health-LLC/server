@@ -35,9 +35,9 @@ public class Repository<T> : IRepository<T> where T : class
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public async Task<T> GetAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true)
+    public async Task<T?> GetAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true)
     {
-        IQueryable<T?> query = _dbSet;
+        IQueryable<T> query = _dbSet;
 
         if (!tracked) query = query.AsNoTracking();
 
@@ -47,7 +47,7 @@ public class Repository<T> : IRepository<T> where T : class
 
     public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true)
     {
-        IQueryable<T?> query = _dbSet;
+        IQueryable<T> query = _dbSet;
 
         if (!tracked) query = query.AsNoTracking();
 
