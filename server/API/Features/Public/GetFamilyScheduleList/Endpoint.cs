@@ -5,9 +5,10 @@ using server.DataAccess.Models;
 
 namespace server.API.Features.Public.GetFamilyScheduleList;
 
-public class Endpoint : EndpointWithoutRequest<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>>
+public class Endpoint(IRepository<BaseScheduleFamily> repository)
+    : EndpointWithoutRequest<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>>
 {
-    public IRepository<BaseScheduleFamily> Repository { get; set; }
+    private IRepository<BaseScheduleFamily> Repository { get; } = repository;
 
     public override void Configure()
     {
