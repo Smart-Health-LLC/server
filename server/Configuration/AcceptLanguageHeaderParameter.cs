@@ -14,7 +14,7 @@ public class AcceptLanguageHeaderParameter : IOperationProcessor
             Name = "Accept-Language",
             Kind = OpenApiParameterKind.Header,
             Description = "Language preference for the response.",
-            IsRequired = true,
+            IsRequired = false,
             IsNullableRaw = true,
             Default = SupportedLanguages.English.Codes.First(),
             Schema = new JsonSchema
