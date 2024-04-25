@@ -1,5 +1,7 @@
+using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Options;
 using server.Configuration;
 using server.DataAccess;
@@ -36,15 +38,10 @@ var builder = WebApplication.CreateBuilder(args);
         };
     });
 
-    services.AddLocalization();
-    builder.Services.Configure<RequestLocalizationOptions>(
-        options =>
-        {
-            options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
-            options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
-            options.SupportedCultures = SupportedCultures.Cultures;
-            options.SupportedUICultures = SupportedCultures.Cultures;
-        });
+    // better for union type returning endpoint handlers
+    services.Configure<JsonOptions>(o =>
+        o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
