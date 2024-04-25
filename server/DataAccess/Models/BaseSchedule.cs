@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.DataAccess.Models;
 
@@ -15,5 +14,5 @@ public class BaseSchedule
 
     public TimeSpan TotalSleepTime { get; set; }
 
-    [ForeignKey("BaseSleepPeriodId")] public virtual List<BaseSleepPeriod> SleepPeriods { get; set; }
+    public virtual List<BaseSleepPeriod> SleepPeriods { get; set; }
 }

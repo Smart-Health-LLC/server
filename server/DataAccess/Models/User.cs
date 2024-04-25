@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace server.DataAccess.Models;
@@ -18,7 +17,7 @@ public class User
 
     public DateOnly SignUpDate { get; set; }
 
-    [ForeignKey("UserScheduleAttemptId")] public virtual List<UserScheduleAttempt>? Attempts { get; set; }
+    public virtual List<UserScheduleAttempt>? Attempts { get; set; }
 
     [JsonIgnore] public string? PasswordHash { get; set; }
 }

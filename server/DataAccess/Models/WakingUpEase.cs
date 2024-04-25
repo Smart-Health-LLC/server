@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.DataAccess.Models;
 
@@ -7,7 +6,7 @@ public class WakingUpEase
 {
     public int Id { get; set; }
 
-    [ForeignKey("SleepPeriodId")] public virtual SleepPeriod SleepPeriod { get; set; }
+    public virtual SleepPeriod SleepPeriod { get; set; }
 
     public DateTime DateTime { get; set; }
 
