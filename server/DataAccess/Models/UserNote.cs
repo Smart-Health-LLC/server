@@ -8,4 +8,5 @@ public class UserNote
     public DateTime DateTime { get; set; }
 
     [MaxLength(1000)] public string NoteContent { get; set; }
+    public virtual List<SleepPeriod> SleepPeriods { get; set; }
 }
