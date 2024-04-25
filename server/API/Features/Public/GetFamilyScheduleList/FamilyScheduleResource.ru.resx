@@ -1,0 +1,30 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Tri core.Description" xml:space="preserve">
+        <value>Семейство расписаний сна Tri Core относительно необычно и не очень популярно. Это связано с жестким планированием сна наряду с деятельностью во время бодрствования. В расписаниях этой группы есть ядро, ориентированное на SWS, ядро, ориентированное на REM, и смешанное ядро. Все эти ядра имеют только один цикл. Количество снов также очень мало по сравнению с другими расписаниями (от 0 до 2).</value>
+    </data>
+    <data name="Biphasic.Description" xml:space="preserve">
+        <value>Расписания сна в семействе двухфазных расписаний обычно состоят только из двух блоков сна. Основными двухфазными графиками сна являются сегментированный, сиеста и двухфазный-X. Интересно, что они долгое время были основными графиками сна на протяжении всей истории человечества в том или ином виде. Нет нужды говорить, что они продолжают отлично работать и в современном мире.</value>
+    </data>
+    <data name="Dual core.Description" xml:space="preserve">
+        <value>Полифазное общество первоначально предложило семейство графиков сна Dual Core (DC), основанных на сегментированном сне. Как правило, адаптироваться к этим графикам сложнее, чем к графикам Everyman. Как и в случае с расписаниями Everyman, название расписаний Dual Core основано на количестве снов, которые в нем содержатся.</value>
+    </data>
+    <data name="Everyman.Description" xml:space="preserve">
+        <value>Сон Everyman - это менее экстремальная альтернатива Uberman. Пуредоксик, который назвал и популяризировал Uberman, в итоге предложил Everyman. Затем он превратился в E3, чтобы легче приспособиться к меньшему количеству сна и в то же время способствовать гибкости сна. Она сообщила, что это стало возможным, когда ее ребенку исполнилось несколько лет; кто-то другой присматривал за ним во время сна. </value>
+    </data>
+</root>

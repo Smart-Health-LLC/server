@@ -1,5 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using Microsoft.Extensions.Options;
 using server.Configuration;
 using server.DataAccess;
 using server.DataAccess.Interfaces;
@@ -26,6 +27,14 @@ var builder = WebApplication.CreateBuilder(args);
     });
 
     services.AddLocalization();
+    builder.Services.Configure<RequestLocalizationOptions>(
+        options =>
+        {
+            options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
+            options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
+            options.SupportedCultures = SupportedCultures.Cultures;
+            options.SupportedUICultures = SupportedCultures.Cultures;
+        });
 
     // configure strongly typed settings object
     services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
@@ -34,7 +43,6 @@ var builder = WebApplication.CreateBuilder(args);
     // configure DI for application services
     services.AddSingleton<DatabaseContext>();
 
-    builder.Services.AddScoped<ILanguageService, LanguageService>();
     builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 }
 
@@ -53,6 +61,10 @@ if (app.Environment.IsDevelopment())
         .AllowAnyMethod()
         .AllowAnyHeader());
 }
+
+// This is used to allow the app to gather the requested language/culture from incoming requests
+var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(localizeOptions!.Value);
 
 app.UseFastEndpoints(c =>
 {

@@ -16,16 +16,15 @@ public class AcceptLanguageHeaderParameter : IOperationProcessor
             Description = "Language preference for the response.",
             IsRequired = false,
             IsNullableRaw = true,
-            Default = SupportedLanguages.English.Codes.First(),
+            Default = SupportedCultures.DefaultCulture.Name,
             Schema = new JsonSchema
             {
                 Type = JsonObjectType.String,
                 Item = new JsonSchema { Type = JsonObjectType.String }
             }
         };
-        parameter.Schema.Enumeration.Add(SupportedLanguages.English.Codes.First());
-        parameter.Schema.Enumeration.Add(SupportedLanguages.Russian.Codes.First());
-        parameter.Schema.Enumeration.Add(SupportedLanguages.French.Codes.First());
+
+        foreach (var culture in SupportedCultures.Cultures) parameter.Schema.Enumeration.Add(culture.Name);
         context.OperationDescription.Operation.Parameters.Add(parameter);
         return true;
     }

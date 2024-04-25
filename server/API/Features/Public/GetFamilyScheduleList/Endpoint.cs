@@ -1,18 +1,19 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Localization;
 using server.DataAccess.Interfaces;
 using server.DataAccess.Models;
 
 namespace server.API.Features.Public.GetFamilyScheduleList;
 
-public class Endpoint(IRepository<BaseScheduleFamily> repository)
+internal class Endpoint(
+    IRepository<BaseScheduleFamily> repository,
+    IStringLocalizer<FamilyScheduleResource> localization)
     : EndpointWithoutRequest<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>>
 {
-    private IRepository<BaseScheduleFamily> Repository { get; } = repository;
-
     public override void Configure()
     {
-        Get("/family-schedules/get-family-schedule-list");
+        Get("/public/get-family-schedule-list");
         Summary(s =>
         {
             s.Summary = "Gets all families schedules";
@@ -24,9 +25,17 @@ public class Endpoint(IRepository<BaseScheduleFamily> repository)
     public override async Task<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>> ExecuteAsync(
         CancellationToken ct)
     {
-        var families = await Repository.GetAllAsync(tracked: false);
+        var families = await repository.GetAllAsync(tracked: false);
         if (families.Count == 0)
             return TypedResults.NotFound();
+
+        foreach (var baseScheduleFamily in families)
+        {
+            var localizedString = localization.GetString(baseScheduleFamily.Name + ".Description");
+            if (localizedString.ResourceNotFound)
+                localizedString = null;
+            baseScheduleFamily.Description = localizedString?.Value;
+        }
 
         return TypedResults.Ok(families);
     }
