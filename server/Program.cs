@@ -55,11 +55,9 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
+{
     app.UseDeveloperExceptionPage();
 
-// configure HTTP request pipeline
-{
-    // global cors policy
     app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
@@ -67,10 +65,13 @@ if (app.Environment.IsDevelopment())
 }
 
 // This is used to allow the app to gather the requested language/culture from incoming requests
-var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-app.UseRequestLocalization(localizeOptions!.Value);
+{
+    var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+    app.UseRequestLocalization(localizeOptions!.Value);
+}
 
 app.UseAuthentication();
+app.UseAuthorization();
 app.UseFastEndpoints(c =>
 {
     c.Endpoints.RoutePrefix = "api";
