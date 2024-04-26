@@ -31,7 +31,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="API\Features\Public\GetFamilyScheduleList\FamilyScheduleResource.Designer.cs">
         <Compile Update="API\Features\Public\GetFamilyScheduleList\Resources\FamilyScheduleResource.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
