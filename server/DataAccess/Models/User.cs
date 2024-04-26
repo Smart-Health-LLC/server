@@ -26,5 +26,5 @@ public class User
 
     public virtual List<UserScheduleAttempt>? Attempts { get; set; }
 
-    [JsonIgnore] public string? PasswordHash { get; set; }
+    [JsonIgnore] public string PasswordHash { get; set; }
 }
