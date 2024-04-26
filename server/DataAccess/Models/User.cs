@@ -1,13 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace server.DataAccess.Models;
 
 public class User
 {
+    [NotMapped] public const int UsernameMinLength = 2;
+
+    [NotMapped] public const int UsernameMaxLength = 32;
+
     public int Id { get; set; }
 
-    [MaxLength(100)] public string? Username { get; set; }
+    [MinLength(UsernameMinLength)]
+    [MaxLength(UsernameMaxLength)]
+    public string Username { get; set; }
 
     [MaxLength(100)] public string? Email { get; set; }
 
