@@ -51,6 +51,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddSingleton<DatabaseContext>();
 
     builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
 }
 
 var app = builder.Build();
@@ -77,6 +78,8 @@ app.UseFastEndpoints(c =>
 {
     c.Endpoints.RoutePrefix = "api";
     c.Versioning.Prefix = "v";
+    // enable RFC7807 Compatible Problem Details in error responses
+    c.Errors.UseProblemDetails();
 });
 app.UseSwaggerGen();
 app.UseDefaultExceptionHandler();
