@@ -23,6 +23,8 @@
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="API\Features\Public\GetFamilyScheduleList\FamilyScheduleResource.resx">
+    <ItemGroup>
+        <EmbeddedResource Update="API\Features\Public\GetFamilyScheduleList\Resources\FamilyScheduleResource.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>FamilyScheduleResource.Designer.cs</LastGenOutput>
         </EmbeddedResource>
@@ -30,10 +32,16 @@
 
     <ItemGroup>
         <Compile Update="API\Features\Public\GetFamilyScheduleList\FamilyScheduleResource.Designer.cs">
+        <Compile Update="API\Features\Public\GetFamilyScheduleList\Resources\FamilyScheduleResource.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>FamilyScheduleResource.resx</DependentUpon>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="API\Features\Public\GetFamilyScheduleList\Resources\FamilyScheduleResource.resx"/>
+        <AdditionalFiles Include="API\Features\Public\GetFamilyScheduleList\Resources\FamilyScheduleResource.ru.resx"/>
     </ItemGroup>
 
 </Project>
