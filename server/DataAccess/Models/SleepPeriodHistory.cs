@@ -8,4 +8,6 @@ public class SleepPeriodHistory
 
     public TimeSpan TimeStart { get; set; }
     public TimeSpan TimeEnd { get; set; }
+
+    public DateTime CreatedAd { get; set; }
 }
