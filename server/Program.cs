@@ -26,8 +26,9 @@ var builder = WebApplication.CreateBuilder(args);
                 options.SupportedUICultures = SupportedCultures.Cultures;
             })
         .AddCors()
-        .AddAuthenticationJwtBearer(o => o.SigningKey = builder.Configuration["JwtSigningKey"])
         .AddFastEndpoints()
+        .AddAuthenticationJwtBearer(o => o.SigningKey = builder.Configuration["JwtSigningKey"])
+        .AddAuthorization()
         .SwaggerDocument(o =>
         {
             o.DocumentSettings = s =>
