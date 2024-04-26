@@ -23,16 +23,11 @@ public class Endpoint(IRepository<User> repository) : Endpoint<Request, Response
         if (user?.PasswordHash is null || !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
             ThrowError("Invalid login credentials!");
 
-        var expiration = DateTime.UtcNow.AddHours(4);
-
-        Response.Token.ExpiryDate = expiration;
         Response.Token.Value = JwtBearer.CreateToken(
             o =>
             {
                 o.SigningKey = Config["JwtSigningKey"]!;
-                o.ExpireAt = expiration;
+                o.ExpireAt = DateTime.UtcNow.AddHours(4);
             });
-
-        await SendAsync(Response, cancellation: ct);
     }
 }
