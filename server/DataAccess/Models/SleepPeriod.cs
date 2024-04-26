@@ -8,5 +8,5 @@ public class SleepPeriod
     public bool IsDeleted { get; set; }
 
     public virtual UserScheduleAttempt Attempt { get; set; }
-    public virtual List<UserNote> UserNotes { get; set; }
+    public virtual List<Note> Notes { get; set; }
 }

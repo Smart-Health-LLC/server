@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace server.DataAccess.Models;
 
-public class UserNote
+public class Note
 {
     public int Id { get; set; }
     public DateTime DateTime { get; set; }
 
-    [MaxLength(1000)] public string NoteContent { get; set; }
+    [MaxLength(1000)] public string Content { get; set; }
     public virtual List<SleepPeriod> SleepPeriods { get; set; }
 }

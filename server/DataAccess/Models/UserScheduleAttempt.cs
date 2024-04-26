@@ -11,5 +11,5 @@ public class UserScheduleAttempt
     public DateOnly DateStarted { get; set; }
     public DateOnly DateFinished { get; set; }
 
-    public virtual List<UserNote> Notes { get; set; }
+    public virtual List<Note> Notes { get; set; }
 }
