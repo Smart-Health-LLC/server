@@ -1,5 +1,4 @@
 using FastEndpoints;
-using server.API.Features.Account.Create;
 using server.DataAccess.Models;
 
 namespace server.API.Features.Account.Signup;
@@ -11,7 +10,7 @@ public class Mapper : Mapper<Request, Response, User>
         return new User
         {
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(r.Password),
-            Username = r.Login,
+            Username = r.Username,
             SignUpDate = DateOnly.FromDateTime(DateTime.UtcNow)
         };
     }

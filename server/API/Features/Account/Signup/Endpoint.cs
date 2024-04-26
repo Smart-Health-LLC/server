@@ -1,33 +1,34 @@
 using FastEndpoints;
-using server.API.Features.Account.Create;
+using Microsoft.AspNetCore.Http.HttpResults;
+using server.DataAccess.Interfaces;
 
 namespace server.API.Features.Account.Signup;
 
-public class Endpoint : Endpoint<Request, Response, Mapper>
+public class Endpoint(IUserRepository userRepository) : Endpoint<Request, Results<Ok<Response>, ProblemDetails>, Mapper>
 {
     public override void Configure()
     {
+        // "Account" namespace is chosen to make difference between namespace name "User" and entity "User"
         Post("/account/signup");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request r, CancellationToken c)
+    public override async Task<Results<Ok<Response>, ProblemDetails>> ExecuteAsync(Request r, CancellationToken c)
     {
-        throw new NotImplementedException();
-        // var author = Map.ToEntity(r);
-        //
-        // var loginIsTaken = await Data.EmailAddressIsTaken(author.Email);
-        //
-        // if (loginIsTaken)
-        //     AddError(r => r.Email, "Sorry! Email address is already in use...");
-        //
-        // ThrowIfAnyErrors();
-        //
-        // await Data.CreateNewAuthor(author);
-        //
-        // await SendAsync(new Response
-        // {
-        //     Message = "Signup complete"
-        // }, cancellation: c);
+        var user = Map.ToEntity(r);
+
+        var usernameIsTaken = await userRepository.IsUsernameTaken(user.Username);
+
+        if (usernameIsTaken)
+        {
+            AddError(request => request.Username, "Sorry! Username is already in use...");
+            return new ProblemDetails(ValidationFailures);
+        }
+
+        ThrowIfAnyErrors();
+
+        await userRepository.CreateAsync(user);
+
+        return TypedResults.Ok(new Response { Message = "Signup complete" });
     }
 }
