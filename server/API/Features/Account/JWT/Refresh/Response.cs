@@ -11,5 +11,5 @@ public class Response : TokenResponse
     public int RefreshTokenValidityMinutes => (int)RefreshExpiry.Subtract(DateTime.UtcNow).TotalMinutes;
 
     // UserId is stored as integer value
-    public int IntUserId => int.Parse(UserId);
+    public long LongUserId => long.Parse(UserId);
 }

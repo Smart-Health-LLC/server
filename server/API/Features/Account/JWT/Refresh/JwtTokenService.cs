@@ -22,12 +22,12 @@ public class JwtTokenService : RefreshTokenService<Request, Response>
 
     public override Task PersistTokenAsync(Response rsp)
     {
-        return RefreshTokenRepository.StoreToken(rsp.IntUserId, rsp.RefreshExpiry, rsp.RefreshToken);
+        return RefreshTokenRepository.StoreToken(rsp.LongUserId, rsp.RefreshExpiry, rsp.RefreshToken);
     }
 
     public override async Task RefreshRequestValidationAsync(Request req)
     {
-        if (!await RefreshTokenRepository.IsRequestTokenValid(req.IntUserId, req.RefreshToken))
+        if (!await RefreshTokenRepository.IsRequestTokenValid(req.LongUserId, req.RefreshToken))
             AddError("The refresh token is not valid!");
     }
 

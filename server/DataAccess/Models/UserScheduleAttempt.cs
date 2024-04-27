@@ -2,7 +2,7 @@ namespace server.DataAccess.Models;
 
 public class UserScheduleAttempt
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public virtual BaseSchedule BaseSchedule { get; set; }
 

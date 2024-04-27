@@ -11,7 +11,8 @@ public class User
 
     [NotMapped] public const int UsernameMaxLength = 32;
 
-    public int Id { get; set; }
+    public long Id { get; set; }
+    
 
     [MinLength(UsernameMinLength)]
     [MaxLength(UsernameMaxLength)]

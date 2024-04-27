@@ -5,5 +5,5 @@ namespace server.API.Features.Account.JWT.Refresh;
 public class Request : TokenRequest
 {
     // UserId is stored as integer value
-    public int IntUserId => int.Parse(UserId);
+    public long LongUserId => long.Parse(UserId);
 }

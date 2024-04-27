@@ -12,7 +12,7 @@ public class RefreshTokenRepository(DatabaseContext applicationDbContext)
      * <see cref="IsRequestTokenValid" />
      * first
      */
-    public async Task StoreToken(int userId, DateTime refreshExpiry, string refreshToken)
+    public async Task StoreToken(long userId, DateTime refreshExpiry, string refreshToken)
     {
         await _dbSet.Where(t => t.UserId == userId).ExecuteDeleteAsync();
 
@@ -25,7 +25,7 @@ public class RefreshTokenRepository(DatabaseContext applicationDbContext)
         await _dbSet.AddAsync(newToken);
     }
 
-    public async Task<bool> IsRequestTokenValid(int userId, string refreshToken)
+    public async Task<bool> IsRequestTokenValid(long userId, string refreshToken)
     {
         var result = await _dbSet.AsNoTracking().AnyAsync(t =>
             t.UserId == userId && t.Token == refreshToken && t.ExpiryDateTime >= DateTime.UtcNow);
