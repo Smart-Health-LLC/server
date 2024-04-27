@@ -2,7 +2,7 @@ namespace server.DataAccess.Models;
 
 public class Oversleep
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public virtual SleepPeriod SleepPeriod { get; set; }
 

@@ -4,7 +4,7 @@ namespace server.DataAccess.Models;
 
 public class Capture
 {
-    [Key] public int Id { get; set; }
+    [Key] public long Id { get; set; }
 
     public virtual User User { get; set; }
 

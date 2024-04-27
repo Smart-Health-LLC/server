@@ -10,7 +10,7 @@ namespace server.DataAccess.Repositories;
 public class Repository<T> : IRepository<T> where T : class
 {
     private readonly DatabaseContext _applicationDbContext;
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> _dbSet;
 
     public Repository(DatabaseContext applicationDbContext)
     {

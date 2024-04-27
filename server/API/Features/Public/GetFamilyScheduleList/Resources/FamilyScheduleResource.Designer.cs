@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace server.API.Features.Public.GetFamilyScheduleList {
-    using System;
-    
-    
+namespace server.API.Features.Public.GetFamilyScheduleList.Resources {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

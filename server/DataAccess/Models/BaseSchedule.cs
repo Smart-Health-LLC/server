@@ -4,7 +4,7 @@ namespace server.DataAccess.Models;
 
 public class BaseSchedule
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [MaxLength(100)] public string Name { get; set; }
 

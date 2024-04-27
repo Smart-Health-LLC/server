@@ -2,7 +2,7 @@ namespace server.DataAccess.Models;
 
 public class UserScheduleAttempt
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public virtual BaseSchedule BaseSchedule { get; set; }
 
@@ -11,5 +11,5 @@ public class UserScheduleAttempt
     public DateOnly DateStarted { get; set; }
     public DateOnly DateFinished { get; set; }
 
-    public virtual List<UserNote> Notes { get; set; }
+    public virtual List<Note> Notes { get; set; }
 }

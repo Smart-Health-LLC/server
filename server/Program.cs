@@ -1,5 +1,8 @@
+using System.Text.Json;
 using FastEndpoints;
+using FastEndpoints.Security;
 using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Options;
 using server.Configuration;
 using server.DataAccess;
@@ -13,49 +16,51 @@ var builder = WebApplication.CreateBuilder(args);
     var services = builder.Services;
     var env = builder.Environment;
 
-    services.AddCors();
-    services.AddFastEndpoints();
-    services.SwaggerDocument(o =>
-    {
-        o.DocumentSettings = s =>
+    services.AddLocalization()
+        .Configure<RequestLocalizationOptions>(
+            options =>
+            {
+                options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
+                options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
+                options.SupportedCultures = SupportedCultures.Cultures;
+                options.SupportedUICultures = SupportedCultures.Cultures;
+            })
+        .AddCors()
+        .AddFastEndpoints()
+        .AddAntiforgery()
+        .AddAuthenticationJwtBearer(o => o.SigningKey = builder.Configuration["JwtSigningKey"])
+        .AddAuthorization()
+        .SwaggerDocument(o =>
         {
-            s.DocumentName = "Initial Release";
-            s.Title = "Pit API";
-            s.Version = "v0";
-            s.OperationProcessors.Add(new AcceptLanguageHeaderParameter());
-        };
-    });
+            o.DocumentSettings = s =>
+            {
+                s.DocumentName = "Initial Release";
+                s.Title = "Pit API";
+                s.Version = "v0";
+                s.OperationProcessors.Add(new AcceptLanguageHeaderParameter());
+            };
+        })
 
-    services.AddLocalization();
-    builder.Services.Configure<RequestLocalizationOptions>(
-        options =>
-        {
-            options.DefaultRequestCulture = SupportedCultures.DefaultRequestCulture;
-            options.SetDefaultCulture(SupportedCultures.DefaultCulture.Name);
-            options.SupportedCultures = SupportedCultures.Cultures;
-            options.SupportedUICultures = SupportedCultures.Cultures;
-        });
+        // better for union type returning endpoint handlers
+        .Configure<JsonOptions>(o =>
+            o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
 
-    // configure strongly typed settings object
-    services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
+        // configure strongly typed settings object
+        .Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"))
 
-
-    // configure DI for application services
-    services.AddSingleton<DatabaseContext>();
-
-    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        // configure DI for application services
+        .AddSingleton<DatabaseContext>()
+        .AddScoped(typeof(IRepository<>), typeof(Repository<>))
+        .AddScoped<IUserRepository, UserRepository>()
+        .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 }
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
+{
     app.UseDeveloperExceptionPage();
 
-// app.UseWebSockets();
-
-// configure HTTP request pipeline
-{
-    // global cors policy
     app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
@@ -63,13 +68,20 @@ if (app.Environment.IsDevelopment())
 }
 
 // This is used to allow the app to gather the requested language/culture from incoming requests
-var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-app.UseRequestLocalization(localizeOptions!.Value);
+{
+    var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+    app.UseRequestLocalization(localizeOptions!.Value);
+}
 
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseAntiforgeryFE(); //must come before UseFastEndpoints()
 app.UseFastEndpoints(c =>
 {
     c.Endpoints.RoutePrefix = "api";
     c.Versioning.Prefix = "v";
+    // enable RFC7807 Compatible Problem Details in error responses
+    c.Errors.UseProblemDetails();
 });
 app.UseSwaggerGen();
 app.UseDefaultExceptionHandler();
