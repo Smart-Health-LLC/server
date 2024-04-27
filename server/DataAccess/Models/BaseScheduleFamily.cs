@@ -12,5 +12,5 @@ public class BaseScheduleFamily
     // localized value is stored in resource files on the server separately
     [NotMapped] public string? Description { get; set; }
 
-    public virtual List<BaseSchedule>? Schedules { get; set; }
+    public virtual List<BaseSchedule> BaseSchedules { get; set; }
 }

@@ -14,7 +14,7 @@ internal class Endpoint(
 {
     public override void Configure()
     {
-        Get("/public/get-family-schedule-list");
+        Get("/public/get-family-schedule-list/");
         Summary(s =>
         {
             s.Summary = "Gets all families schedules";
