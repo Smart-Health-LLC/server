@@ -27,6 +27,7 @@ var builder = WebApplication.CreateBuilder(args);
             })
         .AddCors()
         .AddFastEndpoints()
+        .AddAntiforgery()
         .AddAuthenticationJwtBearer(o => o.SigningKey = builder.Configuration["JwtSigningKey"])
         .AddAuthorization()
         .SwaggerDocument(o =>
@@ -74,6 +75,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgeryFE(); //must come before UseFastEndpoints()
 app.UseFastEndpoints(c =>
 {
     c.Endpoints.RoutePrefix = "api";
