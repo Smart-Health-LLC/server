@@ -1,6 +1,6 @@
 using FastEndpoints.Security;
 
-namespace server.API.Features.Account.RefreshToken;
+namespace server.API.Features.Account.JWT.Refresh;
 
 public class Request : TokenRequest
 {

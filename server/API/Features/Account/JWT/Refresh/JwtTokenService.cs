@@ -2,7 +2,7 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using server.DataAccess.Interfaces;
 
-namespace server.API.Features.Account.RefreshToken;
+namespace server.API.Features.Account.JWT.Refresh;
 
 public class JwtTokenService : RefreshTokenService<Request, Response>
 {

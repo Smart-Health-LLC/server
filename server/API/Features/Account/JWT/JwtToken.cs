@@ -1,4 +1,4 @@
-namespace server.API.Features.Account;
+namespace server.API.Features.Account.JWT;
 
 public class JwtToken
 {
