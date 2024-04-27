@@ -15,4 +15,7 @@ public class BaseSchedule
     public TimeSpan TotalSleepTime { get; set; }
 
     public virtual List<BaseSleepPeriod> SleepPeriods { get; set; }
+
+    // // have to use to seed data correctly
+    public long BaseScheduleFamilyId { get; set; }
 }
