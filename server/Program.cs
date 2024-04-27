@@ -50,7 +50,8 @@ var builder = WebApplication.CreateBuilder(args);
         // configure DI for application services
         .AddSingleton<DatabaseContext>()
         .AddScoped(typeof(IRepository<>), typeof(Repository<>))
-        .AddScoped<IUserRepository, UserRepository>();
+        .AddScoped<IUserRepository, UserRepository>()
+        .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 }
 
 var app = builder.Build();

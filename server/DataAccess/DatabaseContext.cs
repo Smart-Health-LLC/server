@@ -11,6 +11,7 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
     private readonly DbSettings _dbSettings = dbSettings.Value;
     public DbSet<BaseSchedule> BaseSchedules { get; set; }
     public DbSet<BaseScheduleFamily> BaseScheduleFamilies { get; set; }
+    public DbSet<JwtLastToken> JwtLastTokens { get; set; }
     public DbSet<BaseSleepPeriod> BaseSleepPeriods { get; set; }
     public DbSet<Capture> Captures { get; set; }
     public DbSet<FallingAsleepEase> FallingAsleepMarks { get; set; }
