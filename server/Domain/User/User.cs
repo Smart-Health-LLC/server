@@ -32,7 +32,8 @@ public class User
 
     public DateOnly SignUpDate { get; set; }
 
-    public virtual List<UserScheduleAttempt>? Attempts { get; set; }
+    public virtual List<UserScheduleAttempt> Attempts { get; set; }
 
+    // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
     [JsonIgnore] public string PasswordHash { get; set; }
 }

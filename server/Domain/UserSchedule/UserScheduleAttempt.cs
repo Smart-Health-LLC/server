@@ -11,10 +11,12 @@ public class UserScheduleAttempt
 
     public virtual BaseSchedule.BaseSchedule BaseSchedule { get; set; }
 
-    public bool IsArchived { get; set; }
+    public bool IsDropped { get; set; }
     public bool IsAdopted { get; set; }
     public DateOnly DateStarted { get; set; }
     public DateOnly DateFinished { get; set; }
 
     public virtual List<Note> Notes { get; set; }
+
+    public long UserId { get; set; }
 }

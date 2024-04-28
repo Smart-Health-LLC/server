@@ -9,7 +9,11 @@ namespace server.Persistence;
  */
 public class Repository<T> : IRepository<T> where T : class
 {
+    /**
+     * Used to get appropriate DbSet and save changes
+     */
     private readonly DatabaseContext _applicationDbContext;
+
     protected readonly DbSet<T> _dbSet;
 
     public Repository(DatabaseContext applicationDbContext)

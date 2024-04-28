@@ -444,7 +444,7 @@ public static class ModelBuilderExtensions
             biphasic, everyman, dualCore, triCore, coreOnly, napOnly, flexible, nonReducing
         ];
 
-        //  The exception 'The seed entity for entity type 'BaseScheduleFamily' with the key value 'Id:1' cannot be
+        // The exception 'The seed entity for entity type 'BaseScheduleFamily' with the key value 'Id:1' cannot be
         // added because it has the navigation 'BaseSchedules' set. To seed relationships, add the entity seed to
         // 'BaseSchedule' and specify the foreign key values {'BaseScheduleFamilyId'}.' was thrown while attempting to
         // create an instance.
