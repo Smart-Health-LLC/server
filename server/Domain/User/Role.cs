@@ -1,4 +1,4 @@
-namespace server.DataAccess.Models;
+namespace server.Domain.User;
 
 public enum Role
 {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using server.DataAccess.Models;
+using server.Domain.BaseSchedule;
 
-namespace server.DataAccess;
+namespace server.Persistence;
 
 public static class ModelBuilderExtensions
 {
@@ -452,7 +452,7 @@ public static class ModelBuilderExtensions
         {
             foreach (var baseSchedule in baseScheduleFamily.BaseSchedules)
                 baseSchedule.BaseScheduleFamilyId = baseScheduleFamily.Id;
-            baseScheduleFamily.BaseSchedules = null;
+            baseScheduleFamily.BaseSchedules = null!;
         }
 
 
@@ -467,7 +467,7 @@ public static class ModelBuilderExtensions
         {
             foreach (var baseScheduleSleepPeriod in baseSchedule.SleepPeriods)
                 baseScheduleSleepPeriod.BaseScheduleId = baseSchedule.Id;
-            baseSchedule.SleepPeriods = null;
+            baseSchedule.SleepPeriods = null!;
         }
 
         modelBuilder.Entity<BaseSchedule>().HasData(

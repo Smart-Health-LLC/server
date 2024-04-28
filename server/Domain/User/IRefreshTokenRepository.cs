@@ -1,4 +1,4 @@
-namespace server.DataAccess.Interfaces;
+namespace server.Domain.User;
 
 public interface IRefreshTokenRepository
 {

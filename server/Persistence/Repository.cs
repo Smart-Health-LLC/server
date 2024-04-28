@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using server.DataAccess.Interfaces;
+using server.Domain;
 
-namespace server.DataAccess.Repositories;
+namespace server.Persistence;
 
 /**
  * Generic repository implementation

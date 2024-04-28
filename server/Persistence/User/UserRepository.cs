@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain.User;
 
-namespace server.DataAccess.Repositories;
+namespace server.Persistence.User;
 
 public class UserRepository(DatabaseContext applicationDbContext)
-    : Repository<User>(applicationDbContext), IUserRepository
+    : Repository<Domain.User.User>(applicationDbContext), IUserRepository
 {
     public async Task<bool> IsUsernameTaken(string username)
     {

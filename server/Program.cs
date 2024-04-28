@@ -5,9 +5,10 @@ using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Options;
 using server.Configuration;
-using server.DataAccess;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Repositories;
+using server.Domain;
+using server.Domain.User;
+using server.Persistence;
+using server.Persistence.User;
 
 var builder = WebApplication.CreateBuilder(args);
 

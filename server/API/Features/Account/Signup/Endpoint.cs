@@ -1,6 +1,6 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
-using server.DataAccess.Interfaces;
+using server.Domain.User;
 
 namespace server.API.Features.Account.Signup;
 

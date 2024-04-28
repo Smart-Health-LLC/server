@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Security;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain;
+using server.Domain.User;
 
 namespace server.API.Features.Account.Login;
 

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace server.DataAccess.Interfaces;
+namespace server.Domain;
 
 /**
  * Generic repository interface with typical CRUD operations

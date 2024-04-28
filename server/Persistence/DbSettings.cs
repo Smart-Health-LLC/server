@@ -1,4 +1,4 @@
-namespace server.DataAccess;
+namespace server.Persistence;
 
 public class DbSettings
 {

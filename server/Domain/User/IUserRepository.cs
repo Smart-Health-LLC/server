@@ -1,6 +1,4 @@
-using server.DataAccess.Models;
-
-namespace server.DataAccess.Interfaces;
+namespace server.Domain.User;
 
 public interface IUserRepository : IRepository<User>
 {

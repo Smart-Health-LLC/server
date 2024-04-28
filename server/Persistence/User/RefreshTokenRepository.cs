@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain.User;
 
-namespace server.DataAccess.Repositories;
+namespace server.Persistence.User;
 
 public class RefreshTokenRepository(DatabaseContext applicationDbContext)
     : Repository<JwtLastToken>(applicationDbContext), IRefreshTokenRepository

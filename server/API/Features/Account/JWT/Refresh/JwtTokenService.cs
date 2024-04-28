@@ -1,6 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Security;
-using server.DataAccess.Interfaces;
+using server.Domain.User;
 
 namespace server.API.Features.Account.JWT.Refresh;
 
@@ -18,7 +18,8 @@ public class JwtTokenService : RefreshTokenService<Request, Response>
         });
     }
 
-    public IRefreshTokenRepository RefreshTokenRepository { get; set; }
+    // ReSharper disable once MemberCanBePrivate.Global
+    public IRefreshTokenRepository RefreshTokenRepository { get; set; } = null!;
 
     public override Task PersistTokenAsync(Response rsp)
     {

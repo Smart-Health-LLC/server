@@ -2,8 +2,8 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Localization;
 using server.API.Features.Public.GetFamilyScheduleList.Resources;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain;
+using server.Domain.BaseSchedule;
 
 namespace server.API.Features.Public.GetFamilyScheduleList;
 
