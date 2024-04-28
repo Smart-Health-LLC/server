@@ -12,7 +12,5 @@ public class SleepPeriod
     public TimeSpan EndTime { get; set; }
     public bool IsDeleted { get; set; }
 
-    // todo interesting looooop
-    public virtual UserScheduleAttempt Attempt { get; set; }
     public virtual List<Note> Notes { get; set; }
 }
