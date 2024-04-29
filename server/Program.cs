@@ -7,8 +7,10 @@ using Microsoft.Extensions.Options;
 using server.Configuration;
 using server.Domain;
 using server.Domain.User;
+using server.Domain.UserSchedule;
 using server.Persistence;
 using server.Persistence.User;
+using server.Persistence.UserSchedule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +55,9 @@ var builder = WebApplication.CreateBuilder(args);
         .AddSingleton<DatabaseContext>()
         .AddScoped(typeof(IRepository<>), typeof(Repository<>))
         .AddScoped<IUserRepository, UserRepository>()
-        .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+        .AddScoped<IUserScheduleAttemptRepository, UserScheduleAttemptRepositoryRepository>();
+        .AddScoped<IUserScheduleService, UserScheduleService>();
 }
 
 var app = builder.Build();
