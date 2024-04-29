@@ -11,6 +11,7 @@ using server.Domain.UserSchedule;
 using server.Persistence;
 using server.Persistence.User;
 using server.Persistence.UserSchedule;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
