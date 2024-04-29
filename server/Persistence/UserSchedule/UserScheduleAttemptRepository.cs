@@ -2,7 +2,7 @@ using server.Domain.UserSchedule;
 
 namespace server.Persistence.UserSchedule;
 
-public class UserScheduleAttemptRepositoryRepository(DatabaseContext applicationDbContext)
+public class UserScheduleAttemptRepository(DatabaseContext applicationDbContext)
     : Repository<UserScheduleAttempt>(applicationDbContext), IUserScheduleAttemptRepository
 {
     public async Task<bool> Drop(long userId)

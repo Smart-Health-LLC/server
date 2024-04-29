@@ -56,7 +56,7 @@ var builder = WebApplication.CreateBuilder(args);
         .AddScoped(typeof(IRepository<>), typeof(Repository<>))
         .AddScoped<IUserRepository, UserRepository>()
         .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
-        .AddScoped<IUserScheduleAttemptRepository, UserScheduleAttemptRepositoryRepository>();
+        .AddScoped<IUserScheduleAttemptRepository, UserScheduleAttemptRepository>()
         .AddScoped<IUserScheduleService, UserScheduleService>();
 }
 
