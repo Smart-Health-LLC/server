@@ -1,4 +1,4 @@
-namespace server.API.Features.Schedule.Get;
+namespace server.API.Features.Attempt.GetAll;
 
 public class Request
 {

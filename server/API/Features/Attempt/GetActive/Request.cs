@@ -1,4 +1,4 @@
-namespace server.API.Features.Schedule.Attempt.Drop;
+namespace server.API.Features.Attempt.GetActive;
 
 public class Request
 {

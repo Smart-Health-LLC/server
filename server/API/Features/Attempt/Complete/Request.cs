@@ -1,4 +1,4 @@
-namespace server.API.Features.Schedule.Attempt.GetActive;
+namespace server.API.Features.Attempt.Complete;
 
 public class Request
 {

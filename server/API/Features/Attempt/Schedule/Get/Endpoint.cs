@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using server.Domain.UserSchedule;
 using server.Services;
 
-namespace server.API.Features.Schedule.Get;
+namespace server.API.Features.Attempt.Schedule.Get;
 
 public class Endpoint(
     IUserScheduleService scheduleService)

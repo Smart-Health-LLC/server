@@ -2,7 +2,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using server.Domain;
 
-namespace server.API.Features.Account.Note.Create;
+namespace server.API.Features.Attempt.Note.Create;
 
 public class Endpoint(IRepository<Domain.UserScheduleManagement.Note> notesRepository)
     : Endpoint<Request, Results<Ok, ProblemDetails>>

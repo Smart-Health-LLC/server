@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using server.Domain;
 using server.Domain.UserSchedule;
 
-namespace server.API.Features.Schedule.Attempt.GetAll;
+namespace server.API.Features.Attempt.GetAll;
 
 public class Endpoint(
     IRepository<UserScheduleAttempt> attemptRepository)

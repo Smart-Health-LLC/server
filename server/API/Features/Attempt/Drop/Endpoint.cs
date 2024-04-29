@@ -2,7 +2,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using server.Domain.UserSchedule;
 
-namespace server.API.Features.Schedule.Attempt.Complete;
+namespace server.API.Features.Attempt.Drop;
 
 public class Endpoint(
     IUserScheduleAttemptRepository attemptRepository)
@@ -21,7 +21,7 @@ public class Endpoint(
     public override async Task<Results<Ok, ProblemDetails>> ExecuteAsync(Request req,
         CancellationToken ct)
     {
-        var result = await attemptRepository.MarkAsAdopted(req.UserId);
+        var result = await attemptRepository.Drop(req.UserId);
         if (!result)
             AddError(
                 "You don't have active attempt right now");

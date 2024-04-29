@@ -1,4 +1,4 @@
-namespace server.API.Features.Schedule.Attempt.Start;
+namespace server.API.Features.Attempt.Start;
 
 public class Request
 {

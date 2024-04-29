@@ -2,7 +2,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using server.Domain.UserSchedule;
 
-namespace server.API.Features.Schedule.Attempt.GetActive;
+namespace server.API.Features.Attempt.GetActive;
 
 public class Endpoint(
     IUserScheduleAttemptRepository attemptRepositoryRepository)
