@@ -13,7 +13,7 @@ public class RefreshTokenRepository(DatabaseContext applicationDbContext)
      */
     public async Task StoreToken(long userId, DateTime refreshExpiry, string refreshToken)
     {
-        await _dbSet.Where(t => t.UserId == userId).ExecuteDeleteAsync();
+        await DbSet.Where(t => t.UserId == userId).ExecuteDeleteAsync();
 
         var newToken = new JwtLastToken
         {
@@ -21,12 +21,12 @@ public class RefreshTokenRepository(DatabaseContext applicationDbContext)
             ExpiryDateTime = refreshExpiry,
             Token = refreshToken
         };
-        await _dbSet.AddAsync(newToken);
+        await DbSet.AddAsync(newToken);
     }
 
     public async Task<bool> IsRequestTokenValid(long userId, string refreshToken)
     {
-        var result = await _dbSet.AsNoTracking().AnyAsync(t =>
+        var result = await DbSet.AsNoTracking().AnyAsync(t =>
             t.UserId == userId && t.Token == refreshToken && t.ExpiryDateTime >= DateTime.UtcNow);
         return result;
     }
