@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using server.Domain.UserSchedule;
 
 // ReSharper disable PropertyCanBeMadeInitOnly.Global
@@ -13,7 +12,9 @@ public class FallingAsleepEase
     // https://stackoverflow.com/questions/8542864/why-use-virtual-for-class-properties-in-entity-framework-model-definitions#8542879
     public virtual SleepPeriod SleepPeriod { get; set; }
 
-    public DateTime DateTime { get; set; }
+    public DateOnly Day { get; set; }
 
-    [AllowedValues(1, 2, 3)] public int Level { get; set; }
+    public int Level { get; set; }
+
+    public long SleepPeriodId { get; set; }
 }

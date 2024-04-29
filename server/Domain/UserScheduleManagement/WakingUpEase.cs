@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using server.Domain.UserSchedule;
 
 // ReSharper disable PropertyCanBeMadeInitOnly.Global
@@ -14,5 +13,7 @@ public class WakingUpEase
 
     public DateTime DateTime { get; set; }
 
-    [AllowedValues(1, 2, 3)] public int Level { get; set; }
+    public int Level { get; set; }
+
+    public long SleepPeriodId { get; set; }
 }

@@ -13,4 +13,6 @@ public class Oversleep
 
     public DateOnly Day { get; set; }
     public TimeSpan Amount { get; set; }
+
+    public long SleepPeriodId { get; set; }
 }

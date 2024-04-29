@@ -41,6 +41,14 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<FallingAsleepEase>()
+            .Property(e => e.Level)
+            .HasAnnotation("AllowedValues", MarkConstants.Values);
+
+        modelBuilder.Entity<WakingUpEase>()
+            .Property(e => e.Level)
+            .HasAnnotation("AllowedValues", MarkConstants.Values);
+
         modelBuilder.Seed();
     }
 }
