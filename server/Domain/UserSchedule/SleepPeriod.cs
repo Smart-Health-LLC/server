@@ -8,8 +8,8 @@ namespace server.Domain.UserSchedule;
 public class SleepPeriod
 {
     public long Id { get; set; }
-    public TimeSpan StartTime { get; set; }
-    public TimeSpan EndTime { get; set; }
+    public TimeOnly StartTime { get; set; }
+    public TimeOnly EndTime { get; set; }
     public bool IsDeleted { get; set; }
 
     public virtual List<Note> Notes { get; set; }
