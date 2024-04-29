@@ -1,6 +1,6 @@
 using FastEndpoints;
 using FluentValidation;
-using server.DataAccess.Models;
+using server.Domain.User;
 
 namespace server.API.Features.Account.Signup;
 

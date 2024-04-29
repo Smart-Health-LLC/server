@@ -5,7 +5,8 @@ namespace server.API.Features.Account.JWT.GetAntiforgery;
 
 internal sealed class Endpoint : EndpointWithoutRequest
 {
-    public IAntiforgery Antiforgery { get; set; }
+    // ReSharper disable once MemberCanBePrivate.Global
+    public IAntiforgery AntiForgery { get; set; } = null!;
 
     public override void Configure()
     {
@@ -15,7 +16,7 @@ internal sealed class Endpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        var tokenSet = Antiforgery.GetAndStoreTokens(HttpContext);
+        var tokenSet = AntiForgery.GetAndStoreTokens(HttpContext);
         await SendAsync(
             new
             {

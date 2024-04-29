@@ -2,8 +2,8 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Localization;
 using server.API.Features.Public.GetFamilyScheduleList.Resources;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain;
+using server.Domain.BaseSchedule;
 
 namespace server.API.Features.Public.GetFamilyScheduleList;
 
@@ -20,7 +20,6 @@ internal class Endpoint(
             s.Summary = "Gets all families schedules";
             s.Description = "Gets groups of sleep families schedules";
         });
-        AllowAnonymous();
     }
 
     public override async Task<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>> ExecuteAsync(

@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
-using server.DataAccess.Interfaces;
-using server.DataAccess.Models;
+using server.Domain;
+using server.Domain.BaseSchedule;
 
 namespace server.API.Features.Public.GetBaseScheduleList;
 
@@ -16,7 +16,6 @@ public class Endpoint(IRepository<BaseSchedule> repository)
             s.Summary = "Gets base schedules";
             s.Description = "Gets base schedules";
         });
-        AllowAnonymous();
     }
 
     public override async Task<Results<Ok<List<BaseSchedule>>, ProblemDetails>> ExecuteAsync(
