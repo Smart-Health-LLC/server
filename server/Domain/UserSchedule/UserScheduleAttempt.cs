@@ -19,4 +19,5 @@ public class UserScheduleAttempt
     public virtual List<Note> Notes { get; set; }
 
     public long UserId { get; set; }
+    public long BaseScheduleId { get; set; }
 }

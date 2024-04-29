@@ -13,4 +13,6 @@ public class SleepPeriod
     public bool IsDeleted { get; set; }
 
     public virtual List<Note> Notes { get; set; }
+
+    public long UserScheduleAttemptId { get; set; }
 }
