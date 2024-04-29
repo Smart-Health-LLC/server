@@ -14,24 +14,20 @@ public class Repository<T> : IRepository<T> where T : class
      */
     private readonly DatabaseContext _applicationDbContext;
 
-    protected readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> DbSet;
 
     public Repository(DatabaseContext applicationDbContext)
     {
         _applicationDbContext = applicationDbContext;
-        _dbSet = _applicationDbContext.Set<T>();
+        DbSet = _applicationDbContext.Set<T>();
     }
 
-    public async Task CreateAsync(T entity)
+    public async Task RemoveAsync(T entity, bool save = false)
     {
-        await _dbSet.AddAsync(entity);
-        await SaveAsync();
-    }
+        DbSet.Remove(entity);
 
-    public async Task RemoveAsync(T entity)
-    {
-        _dbSet.Remove(entity);
-        await SaveAsync();
+        if (save)
+            await SaveAsync();
     }
 
     public async Task SaveAsync()
@@ -39,19 +35,35 @@ public class Repository<T> : IRepository<T> where T : class
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public async Task<T?> GetAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true)
+    public async Task<T?> GetAsync(Expression<Func<T, bool>> filter, bool tracked = true)
     {
-        IQueryable<T> query = _dbSet;
+        IQueryable<T> query = DbSet;
 
         if (!tracked) query = query.AsNoTracking();
 
-        if (filter != null) query = query.Where(filter!);
-        return await query.FirstOrDefaultAsync();
+        return await query.SingleOrDefaultAsync(filter);
     }
+
+    public async Task AddAsync(T entity, bool save = false)
+    {
+        await DbSet.AddAsync(entity);
+
+        if (save)
+            await SaveAsync();
+    }
+
+    public async Task AddCollectionAsync(IEnumerable<T> entities, bool save = false)
+    {
+        await DbSet.AddRangeAsync(entities);
+
+        if (save)
+            await SaveAsync();
+    }
+
 
     public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true)
     {
-        IQueryable<T> query = _dbSet;
+        IQueryable<T> query = DbSet;
 
         if (!tracked) query = query.AsNoTracking();
 

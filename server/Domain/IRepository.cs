@@ -9,8 +9,9 @@ namespace server.Domain;
 public interface IRepository<T> where T : class
 {
     Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true);
-    Task<T?> GetAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true);
-    Task CreateAsync(T entity);
-    Task RemoveAsync(T entity);
+    Task<T?> GetAsync(Expression<Func<T, bool>> filter, bool tracked = true);
+    Task AddAsync(T entity, bool save = false);
+    Task AddCollectionAsync(IEnumerable<T> entities, bool save = false);
+    Task RemoveAsync(T entity, bool save = false);
     Task SaveAsync();
 }
