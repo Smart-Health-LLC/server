@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using server.Domain.UserSchedule;
 
 namespace server.Persistence.UserSchedule;
@@ -35,14 +34,5 @@ public class UserScheduleAttemptRepositoryRepository(DatabaseContext application
             attempt.UserId == userId && !attempt.IsAdopted && !attempt.IsDropped, tracked);
 
         return activeAttempt;
-    }
-
-    public async Task<long?> GetActiveId(long userId)
-    {
-        var activeAttemptId = await DbSet.AsNoTracking().Where(attempt =>
-                attempt.UserId == userId && !attempt.IsAdopted && !attempt.IsDropped).Select(attempt => attempt.Id)
-            .FirstOrDefaultAsync();
-
-        return activeAttemptId;
     }
 }
