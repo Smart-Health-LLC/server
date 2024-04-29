@@ -16,7 +16,6 @@ public class Endpoint(IRepository<BaseSchedule> repository)
             s.Summary = "Gets base schedules";
             s.Description = "Gets base schedules";
         });
-        AllowAnonymous();
     }
 
     public override async Task<Results<Ok<List<BaseSchedule>>, ProblemDetails>> ExecuteAsync(

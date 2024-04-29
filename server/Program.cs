@@ -59,14 +59,12 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-
-    app.UseCors(x => x
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-}
+    app.UseDeveloperExceptionPage()
+        .UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+        );
 
 // This is used to allow the app to gather the requested language/culture from incoming requests
 {
@@ -74,12 +72,20 @@ if (app.Environment.IsDevelopment())
     app.UseRequestLocalization(localizeOptions!.Value);
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseAntiforgeryFE(); //must come before UseFastEndpoints()
+app.UseAuthentication()
+    .UseAuthorization()
+    .UseAntiforgeryFE(); //must come before UseFastEndpoints()
+
+const string routePrefix = "api";
+
 app.UseFastEndpoints(c =>
 {
-    c.Endpoints.RoutePrefix = "api";
+    c.Endpoints.RoutePrefix = routePrefix;
+    // AllowAnonymous for all api/public/... endpoints
+    c.Endpoints.Configurator = ep =>
+    {
+        if (ep.Routes != null && ep.Routes[0].StartsWith(routePrefix + "/public/")) ep.AllowAnonymous();
+    };
     c.Versioning.Prefix = "v";
     // enable RFC7807 Compatible Problem Details in error responses
     c.Errors.UseProblemDetails();

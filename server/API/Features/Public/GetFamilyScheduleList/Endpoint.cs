@@ -20,7 +20,6 @@ internal class Endpoint(
             s.Summary = "Gets all families schedules";
             s.Description = "Gets groups of sleep families schedules";
         });
-        AllowAnonymous();
     }
 
     public override async Task<Results<Ok<List<BaseScheduleFamily>>, NotFound, ProblemDetails>> ExecuteAsync(
