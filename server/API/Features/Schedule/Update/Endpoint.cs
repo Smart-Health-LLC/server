@@ -2,14 +2,14 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using server.Services;
 
-namespace server.API.Features.Schedule.Set;
+namespace server.API.Features.Schedule.Update;
 
 public class Endpoint(IUserScheduleService scheduleService)
     : Endpoint<Request, Results<Ok, ProblemDetails>>
 {
     public override void Configure()
     {
-        Post("/schedule/set/");
+        Post("/schedule/update/");
     }
 
     public override async Task<Results<Ok, ProblemDetails>> ExecuteAsync(Request req, CancellationToken c)

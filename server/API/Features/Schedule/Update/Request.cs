@@ -1,6 +1,6 @@
 using server.Services;
 
-namespace server.API.Features.Schedule.Set;
+namespace server.API.Features.Schedule.Update;
 
 public class Request
 {
