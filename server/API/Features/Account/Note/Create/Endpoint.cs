@@ -14,11 +14,11 @@ public class Endpoint(IRepository<Domain.UserScheduleManagement.Note> notesRepos
 
     public override async Task<Results<Ok, ProblemDetails>> ExecuteAsync(Request req, CancellationToken c)
     {
-        await notesRepository.CreateAsync(new Domain.UserScheduleManagement.Note
+        await notesRepository.AddAsync(new Domain.UserScheduleManagement.Note
         {
             Content = req.NoteContent,
             CreatedAt = DateTime.UtcNow
-        });
+        }, true);
         return TypedResults.Ok();
     }
 }

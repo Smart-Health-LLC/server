@@ -27,7 +27,7 @@ public class Endpoint(IUserRepository userRepository) : Endpoint<Request, Result
 
         ThrowIfAnyErrors();
 
-        await userRepository.CreateAsync(user);
+        await userRepository.AddAsync(user, true);
 
         return TypedResults.Ok(new Response { Message = "Signup complete" });
     }
