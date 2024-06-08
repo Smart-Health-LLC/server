@@ -11,6 +11,7 @@ public class Endpoint(IRepository<BaseSchedule> repository)
     public override void Configure()
     {
         Get("/public/get-base-schedule-list/");
+        AllowAnonymous();
         Summary(s =>
         {
             s.Summary = "Gets base schedules";

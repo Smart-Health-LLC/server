@@ -32,6 +32,9 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
     {
         var connectionString =
             $"Host={_dbSettings.Server}; Database={_dbSettings.Database}; Username={_dbSettings.UserId}; Password={_dbSettings.Password};";
+        Console.WriteLine();
+        Console.WriteLine(connectionString);
+        Console.WriteLine();
         optionsBuilder.UseNpgsql(connectionString);
         // verbose errors 
         optionsBuilder.EnableDetailedErrors().EnableSensitiveDataLogging();

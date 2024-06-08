@@ -3,6 +3,7 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using server.Configuration;
 using server.Domain;
@@ -11,14 +12,12 @@ using server.Domain.UserSchedule;
 using server.Persistence;
 using server.Persistence.User;
 using server.Persistence.UserSchedule;
-using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // add services to DI container
 {
     var services = builder.Services;
-    var env = builder.Environment;
 
     services.AddLocalization()
         .Configure<RequestLocalizationOptions>(
@@ -53,23 +52,32 @@ var builder = WebApplication.CreateBuilder(args);
         .Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"))
 
         // configure DI for application services
-        .AddSingleton<DatabaseContext>()
+        .AddDbContext<DatabaseContext>()
         .AddScoped(typeof(IRepository<>), typeof(Repository<>))
         .AddScoped<IUserRepository, UserRepository>()
         .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
-        .AddScoped<IUserScheduleAttemptRepository, UserScheduleAttemptRepository>()
-        .AddScoped<IUserScheduleService, UserScheduleService>();
+        .AddScoped<IUserScheduleAttemptRepository, UserScheduleAttemptRepository>();
+    // .AddScoped<IUserScheduleService, UserScheduleService>();
 }
+
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage()
-        .UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-        );
+// Initialize the database
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    dbContext.Database.Migrate();
+}
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
+
+if (app.Environment.IsProduction()) app.UseHttpsRedirection();
+
 
 // This is used to allow the app to gather the requested language/culture from incoming requests
 {
@@ -86,16 +94,12 @@ const string routePrefix = "api";
 app.UseFastEndpoints(c =>
 {
     c.Endpoints.RoutePrefix = routePrefix;
-    // AllowAnonymous for all api/public/... endpoints
-    c.Endpoints.Configurator = ep =>
-    {
-        if (ep.Routes != null && ep.Routes[0].StartsWith(routePrefix + "/public/")) ep.AllowAnonymous();
-    };
     c.Versioning.Prefix = "v";
     // enable RFC7807 Compatible Problem Details in error responses
     c.Errors.UseProblemDetails();
 });
 app.UseSwaggerGen();
 app.UseDefaultExceptionHandler();
+
 
 await app.RunAsync();
