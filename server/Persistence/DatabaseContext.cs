@@ -30,11 +30,9 @@ public class DatabaseContext(IOptions<DbSettings> dbSettings) : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionString =
-            $"Host={_dbSettings.Server}; Database={_dbSettings.Database}; Username={_dbSettings.UserId}; Password={_dbSettings.Password};";
-        Console.WriteLine();
-        Console.WriteLine(connectionString);
-        Console.WriteLine();
+        // var connectionString =
+        //     $"Host={_dbSettings.Server}; Database={_dbSettings.Database}; Username={_dbSettings.UserId}; Password={_dbSettings.Password};";
+        var connectionString = "Host=localhost; Database=main; Username=postgres; Password=postgres;";
         optionsBuilder.UseNpgsql(connectionString);
         // verbose errors 
         optionsBuilder.EnableDetailedErrors().EnableSensitiveDataLogging();
