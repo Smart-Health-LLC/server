@@ -5,6 +5,7 @@ using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Prometheus;
 using server.Configuration;
 using server.Domain;
 using server.Domain.User;
@@ -88,6 +89,8 @@ if (app.Environment.IsProduction()) app.UseHttpsRedirection();
 app.UseAuthentication()
     .UseAuthorization()
     .UseAntiforgeryFE(); //must come before UseFastEndpoints()
+
+app.MapMetrics();
 
 const string routePrefix = "api";
 
